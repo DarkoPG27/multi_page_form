@@ -8,8 +8,14 @@ const Form = () => {
         setPage,
         data,
         title,
-        canSubmit
+        canSubmit,
+        disablePrev,
+        disableNext,
+        prevHide,
+        nextHide,
+        submitHide
     } = useFormContext();
+
 
 
     const handlePrev = () => setPage(prev => prev - 1);
@@ -25,15 +31,15 @@ const Form = () => {
 
     const content = (
         <form className="form flex-col" onSubmit={handleSubmit}>
-            <header>
+            <header className='form-header'>
                 <h2>{title[page]}</h2>
 
                 <div className='button-container'>
 
-                    <button type="button" className="button" disabled={!canSubmit} onClick={handlePrev}>Prev</button>
-                    <button type="button" className="button" disabled={!canSubmit} onClick={handleNext}>Next</button>
+                    <button type="button" className={`button ${prevHide} `} onClick={handlePrev} disabled={disablePrev}>Prev</button>
+                    <button type="button" className={`button ${nextHide} `} onClick={handleNext} disabled={disableNext}>Next</button>
 
-                    <button type="submit" className="button" disabled={!canSubmit}>Submit</button>
+                    <button type="submit" className={`button ${submitHide} `} disabled={!canSubmit}>Submit</button>
                 </div>
             </header>
 

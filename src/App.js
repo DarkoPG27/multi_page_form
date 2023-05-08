@@ -1,9 +1,12 @@
 import './App.css';
 
-import Form from "./components/Form"
+import Form from "./components/Form";
+import { FormProvider } from './context/FormContext';
 
 function App() {
-  return <Form />
+  return <FormProvider>
+    <Form />
+  </FormProvider>
 }
 
 export default App;
