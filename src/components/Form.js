@@ -1,43 +1,44 @@
-import Billing from "./Billing"
-import { useState } from "react"
+import FormInputs from './FormInputs';
+import useFormContext from "../hooks/useFormContext"
 
 const Form = () => {
-    const [data, setData] = useState({
-        billFirstName: "",
-        billLastName: "",
-        billAddress1: "",
-        billAddress2: "",
-        billCity: "",
-        billState: "",
-        billZipCode: ""
-    })
+
+    const {
+        page,
+        setPage,
+        data,
+        title,
+        canSubmit
+    } = useFormContext();
+
+
+    const handlePrev = () => setPage(prev => prev - 1);
+
+    const handleNext = () => setPage(prev => prev + 1);
 
     const handleSubmit = e => {
         e.preventDefault()
         console.log(JSON.stringify(data));
     }
 
-    const handleChange = e => {
-        const type = e.target.type
-        const name = e.target.name
-        const value = type === "checkbox"
-            ? e.target.checked
-            : e.target.value
-        setData(prevData => ({
-            ...prevData,
-            [name]: value
-        }))
-    }
 
-    const { billAddress2, ...otherProps } = data;
-
-    const canSave = [...Object.values(otherProps)].every(Boolean);
 
     const content = (
         <form className="form flex-col" onSubmit={handleSubmit}>
-            <h2>Billing Info</h2>
-            <Billing data={data} handleChange={handleChange} />
-            <button className="button" disabled={!canSave}>Submit</button>
+            <header>
+                <h2>{title[page]}</h2>
+
+                <div className='button-container'>
+
+                    <button type="button" className="button" disabled={!canSubmit} onClick={handlePrev}>Prev</button>
+                    <button type="button" className="button" disabled={!canSubmit} onClick={handleNext}>Next</button>
+
+                    <button type="submit" className="button" disabled={!canSubmit}>Submit</button>
+                </div>
+            </header>
+
+            <FormInputs />
+
         </form>
     );
 
