@@ -29,9 +29,9 @@ const Form = () => {
         }))
     }
 
-    const { billAddress2, ...otherProps } = data
+    const { billAddress2, ...otherProps } = data;
 
-    const canSave = [...Object.values(otherProps)].every(Boolean)
+    const canSave = [...Object.values(otherProps)].every(Boolean);
 
     const content = (
         <form className="form flex-col" onSubmit={handleSubmit}>
@@ -39,7 +39,7 @@ const Form = () => {
             <Billing data={data} handleChange={handleChange} />
             <button className="button" disabled={!canSave}>Submit</button>
         </form>
-    )
+    );
 
     return content;
 }
